@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fafafa"
+                tools:context=".adddeletenote.MainActivity">
+
+    <android.support.v7.widget.CardView
+            android:id="@+id/cardAddNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            app:cardElevation="2dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="vertical">
+
+            <EditText
+                    android:id="@+id/edtNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:gravity="start"
+                    android:hint="Add your notes here..."
+                    android:maxLines="5"
+                    android:minLines="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            <Button
+                    android:id="@+id/btnAddNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/green_gradient"
+                    android:text="Thêm Note"
+                    android:textAllCaps="false"
+                    android:theme="@style/PrimaryButton" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardAddNote"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:layoutAnimation="@anim/layout_animation_fall_down"
+            tools:listitem="@layout/notes" />
+
+</RelativeLayout>
