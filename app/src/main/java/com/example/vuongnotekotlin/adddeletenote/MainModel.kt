@@ -14,7 +14,7 @@ import java.util.ArrayList
 class MainModel internal constructor() : MainContract.model {
     private val mPreferences: SharedPreferences?
 
-    override val notes: ArrayList<Note>
+    override val notes: MutableList<Note>
         get() {
             var notes = ArrayList<Note>()
             val noteListString = mPreferences!!.getString(MainContract.model.NOTES_LIST, "")
@@ -39,12 +39,12 @@ class MainModel internal constructor() : MainContract.model {
 
     override fun removeNote(note: Note) {
         val dbNotes = notes
-//        for (i in 0 ) {
-//            if (dbNotes[i].id == note.id) {
-//                dbNotes.removeAt(i)
-//                break
-//            }
-//        }
+        for (i in 0 until dbNotes.size ) {
+            if (dbNotes[i].id == note.id) {
+                dbNotes.removeAt(i)
+                break
+            }
+        }
         if (dbNotes.size > 0) {
             val noteAsString = Gson().toJson(dbNotes)
             mPreferences!!.edit().putString(MainContract.model.NOTES_LIST, noteAsString).apply()
