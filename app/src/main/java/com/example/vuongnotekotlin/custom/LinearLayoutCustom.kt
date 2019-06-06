@@ -1,4 +1,4 @@
-package mvpdemo.notemvp.com.tungvuong.custom
+package com.example.vuongnotekotlin.custom
 
 import android.content.Context
 import android.graphics.PointF

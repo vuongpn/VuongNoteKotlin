@@ -11,13 +11,13 @@ import com.google.gson.reflect.TypeToken
 import java.util.ArrayList
 
 
-class MainModel internal constructor() : MainContract.model {
+class MainModel internal constructor() : MainContract.Model {
     private val mPreferences: SharedPreferences?
 
     override val notes: MutableList<Note>
         get() {
             var notes = ArrayList<Note>()
-            val noteListString = mPreferences!!.getString(MainContract.model.NOTES_LIST, "")
+            val noteListString = mPreferences!!.getString(MainContract.Model.NOTES_LIST, "")
             if (!TextUtils.isEmpty(noteListString)) {
                 notes = Gson().fromJson(noteListString, object : TypeToken<List<Note>>() {
 
@@ -34,7 +34,7 @@ class MainModel internal constructor() : MainContract.model {
         val dbNotes = notes
         dbNotes.add(0, note)
         val noteAsString = Gson().toJson(dbNotes)
-        mPreferences!!.edit().putString(MainContract.model.NOTES_LIST, noteAsString).apply()
+        mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
     }
 
     override fun removeNote(note: Note) {
@@ -47,9 +47,9 @@ class MainModel internal constructor() : MainContract.model {
         }
         if (dbNotes.size > 0) {
             val noteAsString = Gson().toJson(dbNotes)
-            mPreferences!!.edit().putString(MainContract.model.NOTES_LIST, noteAsString).apply()
+            mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
         } else {
-            mPreferences!!.edit().putString(MainContract.model.NOTES_LIST, "").apply()
+            mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, "").apply()
         }
     }
 

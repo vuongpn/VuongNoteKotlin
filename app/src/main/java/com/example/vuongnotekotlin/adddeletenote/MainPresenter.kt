@@ -7,7 +7,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MainPresenter internal constructor(private val mView: MainContract.view) : NotesAdapter.NoteDeleteListener, MainContract.Presenter {
+class MainPresenter internal constructor(private val mView: MainContract.View) : NotesAdapter.NoteDeleteListener, MainContract.Presenter {
+
     private val mDatabase = MainModel()
     private val simpleDateFormat = SimpleDateFormat("dd/MM/yyy hh:mm a", Locale.US)
 
@@ -23,6 +24,12 @@ class MainPresenter internal constructor(private val mView: MainContract.view) :
             mView.setAdapter(mDatabase.notes)
             mView.clearEdt()
         }
+    }
+
+    override fun onSuccess() {
+    }
+
+    override fun onFailure() {
     }
 
     override fun onNoteDeleteClicked(note: Note) {

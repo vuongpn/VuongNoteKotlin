@@ -2,17 +2,16 @@ import com.example.vuongnotekotlin.model.Note
 
 interface MainContract {
 
-    interface view {
+    interface View {
 
         fun showError(msg: String)
 
         fun setAdapter(notes: List<Note>)
 
         fun clearEdt()
-
     }
 
-    interface model {
+    interface Model {
 
         val notes: List<Note>
 
@@ -21,11 +20,13 @@ interface MainContract {
         fun removeNote(note: Note)
 
         companion object {
-            val NOTES_LIST = "notes_list"
+            const val NOTES_LIST = "notes_list"
         }
-
     }
 
-    interface Presenter
+    interface Presenter{
+        fun onSuccess()
+        fun onFailure()
+    }
 
 }

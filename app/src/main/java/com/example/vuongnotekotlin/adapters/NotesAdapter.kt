@@ -9,13 +9,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.vuongnotekotlin.R
 import com.example.vuongnotekotlin.model.Note
-import java.util.Random
+import java.util.*
 
+class NotesAdapter(private val noteList: MutableList<Note>, private val noteDeleteListener: NoteDeleteListener) :
 
-class NotesAdapter(private val noteList: MutableList<Note>, private val noteDeleteListener: NoteDeleteListener) : RecyclerView.Adapter<NotesAdapter.NoteHolder>() {
+    RecyclerView.Adapter<NotesAdapter.NoteHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
-        return NoteHolder(LayoutInflater.from(parent.context).inflate(R.layout.notes, parent, false))
+        return NoteHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.notes, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
@@ -23,7 +27,10 @@ class NotesAdapter(private val noteList: MutableList<Note>, private val noteDele
         holder.tvNote.text = item.note
         holder.tvDate.text = item.date
         val rnd = Random()
-        val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        val color = Color.argb(
+            255, rnd.nextInt(256)
+            , rnd.nextInt(256), rnd.nextInt(256)
+        )
         holder.viewIndicator.setBackgroundColor(color)
     }
 
@@ -38,10 +45,10 @@ class NotesAdapter(private val noteList: MutableList<Note>, private val noteDele
     }
 
     inner class NoteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-         val viewIndicator: View
-         val tvNote: TextView
-         val tvDate: TextView
-         val imgDelete: ImageView
+        val viewIndicator: View
+        val tvNote: TextView
+        val tvDate: TextView
+        private val imgDelete: ImageView
 
         init {
             setIsRecyclable(false)
@@ -55,11 +62,9 @@ class NotesAdapter(private val noteList: MutableList<Note>, private val noteDele
                 notifyDataSetChanged()
             }
         }
-
     }
 
     interface NoteDeleteListener {
         fun onNoteDeleteClicked(note: Note)
     }
-
 }
