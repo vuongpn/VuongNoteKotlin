@@ -1,15 +1,12 @@
 package com.example.vuongnotekotlin.adddeletenote
 
-
-
+import MainContract
 import android.content.Context
 import android.content.SharedPreferences
-import android.text.TextUtils
 import com.example.vuongnotekotlin.model.Note
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.util.ArrayList
-
+import java.util.*
 
 class MainModel internal constructor() : MainContract.Model {
     private val mPreferences: SharedPreferences?
@@ -17,11 +14,12 @@ class MainModel internal constructor() : MainContract.Model {
     override val notes: MutableList<Note>
         get() {
             var notes = ArrayList<Note>()
-            val noteListString = mPreferences!!.getString(MainContract.Model.NOTES_LIST, "")
-            if (!TextUtils.isEmpty(noteListString)) {
-                notes = Gson().fromJson(noteListString, object : TypeToken<List<Note>>() {
-
-                }.type)
+            val noteListString = mPreferences?.getString(MainContract.Model.NOTES_LIST, "")
+            if (noteListString != null) {
+                if (noteListString.isNotEmpty()) {
+                    notes = Gson().fromJson(noteListString, object : TypeToken<List<Note>>() {
+                    }.type)
+                }
             }
             return notes
         }
@@ -34,12 +32,14 @@ class MainModel internal constructor() : MainContract.Model {
         val dbNotes = notes
         dbNotes.add(0, note)
         val noteAsString = Gson().toJson(dbNotes)
-        mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
+        if (mPreferences != null) {
+            mPreferences.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
+        }
     }
 
     override fun removeNote(note: Note) {
         val dbNotes = notes
-        for (i in 0 until dbNotes.size ) {
+        for (i in 0 until dbNotes.size) {
             if (dbNotes[i].id == note.id) {
                 dbNotes.removeAt(i)
                 break
@@ -49,12 +49,14 @@ class MainModel internal constructor() : MainContract.Model {
             val noteAsString = Gson().toJson(dbNotes)
             mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
         } else {
-            mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, "").apply()
+            if (mPreferences != null) {
+                mPreferences.edit().putString(MainContract.Model.NOTES_LIST, "").apply()
+            }
         }
     }
 
     companion object {
-        private val SHARED_PREFERENCES = "notePreferences"
+        private const val SHARED_PREFERENCES = "notePreferences"
         private var sPreferences: SharedPreferences? = null
         private fun providePreferences(): SharedPreferences? {
             return sPreferences

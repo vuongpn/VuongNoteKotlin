@@ -1,6 +1,5 @@
 package com.example.vuongnotekotlin.adddeletenote
 
-import android.text.TextUtils
 import com.example.vuongnotekotlin.adapters.NotesAdapter
 import com.example.vuongnotekotlin.model.Note
 import java.text.SimpleDateFormat
@@ -17,7 +16,7 @@ class MainPresenter internal constructor(private val mView: MainContract.View) :
     }
 
     internal fun addNote(note: String) {
-        if (TextUtils.isEmpty(note)) {
+        if (note.isEmpty()) {
             mView.showError("Chưa nhập...")
         } else {
             mDatabase.addNote(Note(System.currentTimeMillis(), note, simpleDateFormat.format(Date())))
