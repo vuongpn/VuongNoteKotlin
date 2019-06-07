@@ -32,9 +32,7 @@ class MainModel internal constructor() : MainContract.Model {
         val dbNotes = notes
         dbNotes.add(0, note)
         val noteAsString = Gson().toJson(dbNotes)
-        if (mPreferences != null) {
-            mPreferences.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
-        }
+        mPreferences?.edit()?.putString(MainContract.Model.NOTES_LIST, noteAsString)?.apply()
     }
 
     override fun removeNote(note: Note) {
@@ -47,11 +45,9 @@ class MainModel internal constructor() : MainContract.Model {
         }
         if (dbNotes.size > 0) {
             val noteAsString = Gson().toJson(dbNotes)
-            mPreferences!!.edit().putString(MainContract.Model.NOTES_LIST, noteAsString).apply()
+            mPreferences?.edit()?.putString(MainContract.Model.NOTES_LIST, noteAsString)?.apply()
         } else {
-            if (mPreferences != null) {
-                mPreferences.edit().putString(MainContract.Model.NOTES_LIST, "").apply()
-            }
+            mPreferences?.edit()?.putString(MainContract.Model.NOTES_LIST, "")?.apply()
         }
     }
 
@@ -66,5 +62,4 @@ class MainModel internal constructor() : MainContract.Model {
             sPreferences = context.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
         }
     }
-
 }
